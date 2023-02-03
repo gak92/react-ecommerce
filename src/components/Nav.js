@@ -169,7 +169,7 @@ const Nav = () => {
               <FiShoppingCart className='cart-trolley' />
               <span className='cart-total--item'>10</span>
             </NavLink>
-          </li>
+            </li>
         </ul>
 
         {/* Two button for mobile menu */}

@@ -1,5 +1,5 @@
-import React from 'react'
-import HeroSection from './HeroSection'
+import React from 'react';
+import HeroSection from './HeroSection';
 
 const About = () => {
 
