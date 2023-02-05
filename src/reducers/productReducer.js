@@ -10,6 +10,7 @@ const ProductReducer = (state, action) => {
       const featureData = action.payload.filter((ele) => {
         return ele.featured === true;
       });
+      // console.log("Feature DATA: ", featureData);
       return {
         ...state,
         isLoading: false,
@@ -23,7 +24,7 @@ const ProductReducer = (state, action) => {
         isLoading: false,
         isError: true,
       };
-      
+
     default:
       return state;
   }
