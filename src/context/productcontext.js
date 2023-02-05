@@ -31,6 +31,8 @@ const AppProvider = ({children}) => {
 
   // get single product
   const getSingleProduct = async (url) => {
+    console.log("SIOnlge product url: ", url);
+    
     dispatch({type: "SET_SINGLE_LOADING"});
     try {
       const res = await axios(url);
