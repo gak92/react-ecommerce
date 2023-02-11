@@ -4,7 +4,7 @@ import { useFilterContext } from "../context/filter_context";
 
 const FilterSection = () => {
   const {
-    filters: { text, category, company },
+    filters: { text, category, company, color },
     all_products,
     updateFilterValue,
   } = useFilterContext();
@@ -13,12 +13,19 @@ const FilterSection = () => {
     let newVal = data.map((currElem) => {
       return currElem[property];
     });
-    newVal = ["all", ...new Set(newVal)];
+
+    if(property === "colors") {
+      newVal = ["all", ...new Set([].concat(...newVal))];
+    } else {
+      newVal = ["all", ...new Set(newVal)];
+    }
     return newVal;
   };
 
   const categoryOnlyData = getUniqueData(all_products, "category");
   const companyOnlyData = getUniqueData(all_products, "company");
+  const colorsData = getUniqueData(all_products, "colors");
+  console.log(colorsData);
 
   return (
     <Wrapper>
@@ -74,6 +81,30 @@ const FilterSection = () => {
             }
           </select>
         </form>
+      </div>
+
+      {/* filters colors */}
+      <div className="colors filter-colors">
+        <h3>Colors</h3>
+        <div className="filter-color--style">
+          {
+            colorsData.map((currColor, index) => {
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  name="color"
+                  value={currColor}
+                  className="btnStyle"
+                  style={{backgroundColor: currColor}}
+                  onClick={updateFilterValue}
+                >
+                  {color === currColor ? "" : null}
+                </button>
+              )
+            })
+          }
+        </div>
       </div>
     </Wrapper>
   );
