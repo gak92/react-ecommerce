@@ -4,7 +4,7 @@ import { useFilterContext } from "../context/filter_context";
 
 const FilterSection = () => {
   const {
-    filters: { text, category },
+    filters: { text, category, company },
     all_products,
     updateFilterValue,
   } = useFilterContext();
@@ -13,7 +13,7 @@ const FilterSection = () => {
     let newVal = data.map((currElem) => {
       return currElem[property];
     });
-    newVal = ["All", ...new Set(newVal)];
+    newVal = ["all", ...new Set(newVal)];
     return newVal;
   };
 

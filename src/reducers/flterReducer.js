@@ -79,13 +79,13 @@ const filterReducer = (state, action) => {
         });
       }
 
-      if(category){
+      if(category !== "all"){
         tempFilterProducts = tempFilterProducts.filter((currElem) => {
           return currElem.category === category;
         });
       }
 
-      if(company){
+      if(company !== "all"){
         tempFilterProducts = tempFilterProducts.filter((currElem) => {
           return currElem.company === company;
         });
