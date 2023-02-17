@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/filter_context";
+import { FaCheck } from 'react-icons/fa';
 
 const FilterSection = () => {
   const {
@@ -85,21 +86,36 @@ const FilterSection = () => {
 
       {/* filters colors */}
       <div className="colors filter-colors">
-        <h3>Colors</h3>
+        <h3>Colors</h3>                
         <div className="filter-color--style">
           {
             colorsData.map((currColor, index) => {
+              if(currColor === 'all') {
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    name="color"
+                    value={currColor}
+                    className="color-all--style"
+                    // style={{backgroundColor: currColor}}
+                    onClick={updateFilterValue}
+                  >
+                    all
+                  </button>
+                );
+              }
               return (
                 <button
                   key={index}
                   type="button"
                   name="color"
                   value={currColor}
-                  className="btnStyle"
+                  className={color === currColor ? "btnStyle active" : "btnStyle"}
                   style={{backgroundColor: currColor}}
                   onClick={updateFilterValue}
                 >
-                  {color === currColor ? "" : null}
+                  {color === currColor ? <FaCheck className='checkStyle'/> : null}
                 </button>
               )
             })
