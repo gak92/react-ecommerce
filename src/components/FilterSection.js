@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/filter_context";
-import { FaCheck } from 'react-icons/fa';
+import { FaCheck } from "react-icons/fa";
+import FormatPrice from "../Helpers/FormatPrice";
 
 const FilterSection = () => {
   const {
-    filters: { text, category, company, color },
+    filters: { text, category, company, color, price, maxPrice, minPrice },
     all_products,
     updateFilterValue,
   } = useFilterContext();
@@ -15,7 +16,7 @@ const FilterSection = () => {
       return currElem[property];
     });
 
-    if(property === "colors") {
+    if (property === "colors") {
       newVal = ["all", ...new Set([].concat(...newVal))];
     } else {
       newVal = ["all", ...new Set(newVal)];
@@ -73,54 +74,70 @@ const FilterSection = () => {
             className="filter-company--select"
             onClick={updateFilterValue}
           >
-            {
-              companyOnlyData.map((currElem, index) => {
-                return(
-                  <option key={index} value={currElem} name="company">{currElem}</option>
-                )
-              })
-            }
+            {companyOnlyData.map((currElem, index) => {
+              return (
+                <option key={index} value={currElem} name="company">
+                  {currElem}
+                </option>
+              );
+            })}
           </select>
         </form>
       </div>
 
       {/* filters colors */}
       <div className="colors filter-colors">
-        <h3>Colors</h3>                
+        <h3>Colors</h3>
         <div className="filter-color--style">
-          {
-            colorsData.map((currColor, index) => {
-              if(currColor === 'all') {
-                return (
-                  <button
-                    key={index}
-                    type="button"
-                    name="color"
-                    value={currColor}
-                    className="color-all--style"
-                    // style={{backgroundColor: currColor}}
-                    onClick={updateFilterValue}
-                  >
-                    all
-                  </button>
-                );
-              }
+          {colorsData.map((currColor, index) => {
+            if (currColor === "all") {
               return (
                 <button
                   key={index}
                   type="button"
                   name="color"
                   value={currColor}
-                  className={color === currColor ? "btnStyle active" : "btnStyle"}
-                  style={{backgroundColor: currColor}}
+                  className="color-all--style"
+                  // style={{backgroundColor: currColor}}
                   onClick={updateFilterValue}
                 >
-                  {color === currColor ? <FaCheck className='checkStyle'/> : null}
+                  all
                 </button>
-              )
-            })
-          }
+              );
+            }
+            return (
+              <button
+                key={index}
+                type="button"
+                name="color"
+                value={currColor}
+                className={color === currColor ? "btnStyle active" : "btnStyle"}
+                style={{ backgroundColor: currColor }}
+                onClick={updateFilterValue}
+              >
+                {color === currColor ? (
+                  <FaCheck className="checkStyle" />
+                ) : null}
+              </button>
+            );
+          })}
         </div>
+      </div>
+
+      {/* filter price */}
+      <div className="filter_price">
+        <h3>Price</h3>
+        <p>
+          <FormatPrice price={price} />
+        </p>
+        <input
+          type="range"
+          name="price"
+          min={minPrice}
+          max={maxPrice}
+          value={price}
+          onChange={updateFilterValue}
+        />
       </div>
     </Wrapper>
   );
