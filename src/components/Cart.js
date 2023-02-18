@@ -1,11 +1,20 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
+import { Button } from '../styles/Button';
 import CartItem from './CartItem';
 
 const Cart = () => {
-  const { cart } = useCartContext();
-  console.log("CART: ", cart);
+  const { cart, clearCart } = useCartContext();
+
+  // console.log("CART: ", cart);
+  if(cart.length === 0) {
+    return <EmptyDiv>
+      <h3>No Cart in Item</h3>
+    </EmptyDiv>
+  }
+
   return (
     <Wrapper>
       <h3>Cart Items</h3>
@@ -27,6 +36,17 @@ const Cart = () => {
               return <CartItem key={currElem.id} {...currElem} />
             })
           }
+        </div>
+
+        <hr />
+
+        <div className='cart-two-button'>
+          <NavLink to="/products" >
+            <Button>Continue Shopping</Button>
+          </NavLink>
+          <Button onClick={clearCart} className="btn btn-clear">
+            Clear Cart
+          </Button>
         </div>
       </div>
 
