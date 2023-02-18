@@ -63,6 +63,56 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if(action.type === "INCREASE_QUANTITY") {
+    let updatedProduct = state.cart.map((currElem) => {
+      if(currElem.id === action.payload) {
+        let incAmount = currElem.amount + 1;
+
+        if(incAmount >= currElem.max) {
+          incAmount = currElem.max;
+        }
+
+        return {
+          ...currElem,
+          amount: incAmount,
+        };
+      }
+      else {
+        return currElem;
+      }
+    });
+
+    return {
+      ...state,
+      cart: updatedProduct,
+    };
+  }
+
+  if(action.type == "DECREASE_QUANTITY") {
+    let updatedProduct = state.cart.map((currElem) => {
+      if(currElem.id === action.payload) {
+        let decAmount = currElem.amount - 1;
+
+        if(decAmount <= 1) {
+          decAmount = 1;
+        }
+
+        return {
+          ...currElem,
+          amount: decAmount,
+        };
+      }
+      else {
+        return currElem;
+      }
+    });
+
+    return {
+      ...state,
+      cart: updatedProduct,
+    };
+  }
+
   return state;
 };
 
