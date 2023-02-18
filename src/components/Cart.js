@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
+import CartItem from './CartItem';
 
 const Cart = () => {
   const { cart } = useCartContext();
@@ -16,6 +17,16 @@ const Cart = () => {
           <p>Quantity</p>
           <p className='cart-hide'>Subtotal</p>
           <p>Remove</p>
+        </div>
+
+        <hr />
+
+        <div className='cart-item'>
+          {
+            cart.map((currElem) => {
+              return <CartItem key={currElem.id} {...currElem} />
+            })
+          }
         </div>
       </div>
 
