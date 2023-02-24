@@ -63,32 +63,51 @@ const cartReducer = (state, action) => {
     };
   }
 
-  if(action.type === "CART_TOTAL_ITEM") {
-    let updatedItemVal = state.cart.reduce((acc, currElem) => {
-      let {amount} = currElem;
-      acc = acc + amount;
+  // if(action.type === "CART_TOTAL_ITEM") {
+  //   let updatedItemVal = state.cart.reduce((acc, currElem) => {
+  //     let {amount} = currElem;
+  //     acc = acc + amount;
+  //     return acc;
+  //   }, 0);
+
+  //   return {
+  //     ...state,
+  //     total_item: updatedItemVal,
+  //   }
+  // }
+
+  // if(action.type === "CART_TOTAL_AMOUNT") {
+  //   let total_price = state.cart.reduce((acc, currElem) => {
+  //     let {price, amount} = currElem;
+
+  //     acc = acc + (price * amount);
+  //     return acc;
+  //   }, 0);
+
+  //   return {
+  //     ...state,
+  //     total_amount: total_price,
+  //   }
+  // }
+
+  if(action.type === "CART_ITEM_PRICE_TOTAL") {
+    let {total_item, total_amount} = state.cart.reduce((acc, currElem) => {
+      let {price, amount} = currElem; 
+      acc.total_item += amount;
+      acc.total_amount += price * amount;
+
       return acc;
-    }, 0);
+    }, 
+    {
+      total_item: 0,
+      total_amount: 0,
+    });
 
     return {
       ...state,
-      total_item: updatedItemVal,
+      total_item: total_item,
+      total_amount: total_amount,
     }
-  }
-
-  if(action.type === "CART_TOTAL_AMOUNT") {
-    let total_price = state.cart.reduce((acc, currElem) => {
-      let {price, amount} = currElem;
-
-      acc = acc + (price * amount);
-      return acc;
-    }, 0);
-
-    return {
-      ...state,
-      total_amount: total_price,
-    }
-
   }
 
   if(action.type === "INCREASE_QUANTITY") {
@@ -116,7 +135,7 @@ const cartReducer = (state, action) => {
     };
   }
 
-  if(action.type == "DECREASE_QUANTITY") {
+  if(action.type === "DECREASE_QUANTITY") {
     let updatedProduct = state.cart.map((currElem) => {
       if(currElem.id === action.payload) {
         let decAmount = currElem.amount - 1;
