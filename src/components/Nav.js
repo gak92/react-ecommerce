@@ -142,7 +142,7 @@ const Nav = () => {
 
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   return (
     <Nav>
@@ -184,6 +184,9 @@ const Nav = () => {
               Products
             </NavLink>
           </li>
+          {
+            isAuthenticated && <p>{user.name}</p>
+          }
           {
             isAuthenticated ? (
             <li>
