@@ -63,6 +63,19 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if(action.type === "CART_TOTAL_ITEM") {
+    let updatedItemVal = state.cart.reduce((acc, currElem) => {
+      let {amount} = currElem;
+      acc = acc + amount;
+      return acc;
+    }, 0);
+
+    return {
+      ...state,
+      total_item: updatedItemVal,
+    }
+  }
+
   if(action.type === "INCREASE_QUANTITY") {
     let updatedProduct = state.cart.map((currElem) => {
       if(currElem.id === action.payload) {

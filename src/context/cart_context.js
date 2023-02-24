@@ -47,6 +47,7 @@ const CartContextProvider = ({ children }) => {
 
   // Adding data to the local storage
   useEffect(() => {
+    dispatch({type: "CART_TOTAL_ITEM"});
     localStorage.setItem("mycart", JSON.stringify(state.cart));
   }, [state.cart]);
 
